@@ -167,7 +167,7 @@ func (user *User) handleReceiptEvent(portal *Portal, event *event.Event) {
 		if _, ok := receipts.Read[user.MXID]; !ok {
 			// Ignore receipt events where this user isn't present.
 		} else if message := user.bridge.DB.Message.GetByMXID(eventID); message != nil {
-			user.log.Debugfln("Marking %s/%s in %s/%s as read", message.GUID, message.MXID, portal.GUID, portal.MXID)
+			user.log.Debugfln("Marking %s/%s in %s/%s as read because %s has a read receipt", message.GUID, message.MXID, portal.GUID, portal.MXID, user.MXID)
 			err := user.bridge.IM.SendReadReceipt(portal.GUID, message.GUID)
 			if err != nil {
 				user.log.Warnln("Error marking read:", err)
