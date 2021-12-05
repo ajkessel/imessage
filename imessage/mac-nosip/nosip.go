@@ -103,12 +103,12 @@ func (mac *MacNoSIPConnector) pingLoop(ipcProc *ipc.Processor) {
 			mac.log.Fatalln("Failed to send ping to Barcelona")
 			os.Exit(254)
 		}
-		timeout := time.After(15 * time.Second)
+		timeout := time.After(45 * time.Second)
 		select {
 		case <-mac.stopPinger:
 			return
 		case <-timeout:
-			mac.log.Fatalln("Didn't receive pong from Barcelona within 15 seconds")
+			mac.log.Fatalln("Didn't receive pong from Barcelona within 45 seconds")
 			os.Exit(255)
 		case rawData := <-resp:
 			if rawData.Command == "error" {
